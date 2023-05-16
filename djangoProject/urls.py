@@ -17,20 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from posts.views import now_date,hello_view, redirect_to_google, redirect_to_youtube,redirect_to_git,goodbye
-
+from products.views import main_page_view , product_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('now_date/',now_date),
-    path('goodby/',goodbye),
-    path('hello/',hello_view),
-    path('google/',redirect_to_google),
-    path('youtube/',redirect_to_youtube),
-    path('git/',redirect_to_git),
-
+    path('', main_page_view),
+    path('products/',product_view )
 ]
-
-
-
-
