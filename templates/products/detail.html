@@ -1,0 +1,47 @@
+{% extends 'layouts/index.html' %}
+{% load static %}
+
+{% block content %}
+
+    <style type="text/css">
+        .product_block {
+            width: 80%;
+            margin-left: 10%;
+        }
+
+        .product_block > img {
+            width: 100%;
+        }
+
+        .dates {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+
+
+    <div class="product_block"></div>
+        {% if product.image %}
+            <img src="/media/{{ product.image }}/" alt="">
+        {% else %}
+            <img src="{% static 'img.png' %}" alt="">
+        {% endif %}
+    <img src="/media/{{ product.image }}/" alt="">
+    <h1{{ product.title }}></h1>
+    <h4>Rate: {{ product.rate }}</h4>
+    <h5>{{ product.description }}</h5>
+
+    <div class="dates">
+        <h5>{{ product.created_date }}</h5>
+        <h5>{{ product.modified_date }}</h5>
+    </div>
+
+    <div class="comments">
+        {% for comment in comments %}
+            <div class="comment_block">
+                <h5>{{ comment.text }}</h5>
+                <p>{{ comment.created_date }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

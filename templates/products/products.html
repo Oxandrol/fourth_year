@@ -1,37 +1,23 @@
 {% extends 'layouts/index.html' %}
 {% load static %}
-{% block content %}
-    <style type="text/css">
-        .products {
-            display: flex;
-            justify-content: space-between;
-            width: 80%;
-            margin-left: 10%;
-            margin-top: 20px;
-            flex-wrap: wrap;
-            gap: 20px;
-            display: flex;
-            text-align: center;
-        }
-
-        .product_image > img {
-            width: 100%;
-        }
-    </style>
+{% block head %}
+    <link rel="stylesheet" href="{% static 'products.css' %}">
     <form action="/products" method="get">
         <input type="text" name="search">
         <input type="submit" value="Search">
     </form>
     <div class="products">
-
-        <div class="card" style="width: 18rem ;">
-            <div class="card-body">
-                <div class="image">
-                    {% if product.image %}
-                        <img style="; display: flex ;max-width: 200px; padding-top:50px ; padding-bottom :25px ; padding-right : 25px ; padding-left :25px  "
-                             class="product_image" src="/media/{{ product.image }}" alt="">
-                    {% else %}
-                        <img style="max-width: 250px; max-height: 210px; border-image:5%" src="{% static 'img.png' %} " alt="">
+        {% for product in products %}
+            <div class="card" style="width: 18rem ;">
+                <div class="card-body">
+                    <div class="image">
+                        {% if product.image %}
+                            <img style="; display: flex ;max-width: 200px; padding-top:50px ; padding-bottom :25px ; padding-right : 25px ; padding-left :25px  "
+                                 class="product_image" src="/media/{{ product.image }}" alt="">
+                        {% else %}
+                            <img style="max-width: 250px; max-height: 210px; border-image:5%"
+                                 src="{% static 'img.png' %} "
+                                 alt="">
                         {% endif %}
                     </div>
                     <h5 class="card-title">{{ product.title }}</h5>
@@ -41,7 +27,7 @@
                     <a href="/products/{{ product.id }}" class="card-link">Подробнее</a>
                 </div>
             </div>
-
+        {% endfor %}
     </div>
     <div class="pages">
         {% for page in pages %}
