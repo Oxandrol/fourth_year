@@ -59,8 +59,9 @@ def register_view(request):
         return render(request, 'users/register.html', context={
             'form': form
         })
+   
 
 def logout_view(requst):
     logout(requst)
-    return redirect('/products/')
+    return redirect('/users/register/')
 

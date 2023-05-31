@@ -2,11 +2,12 @@ from django.shortcuts import render
 from django.shortcuts import HttpResponse, redirect
 from products.models import Products, Comment
 from products.forms import ProductCreateForm
+from products.constants import PAGINATIONLIMIT
 
 from datetime import date
 
 current_date = date.today()
-print(current_date)
+
 
 
 # Create your views here.
@@ -17,13 +18,26 @@ def main_page_view(request):
 
 
 def product_view(request):
-
     if request.method == "GET":
         products = Products.objects.all()
+        search = request.GET.get('search')
+        page = int(request.GET.get('page', 1))
+
+        max_page = products.__len__() / PAGINATIONLIMIT
+        if round(max_page) < max_page:
+            max_page = round(max_page) + 1
+        else:
+            max_page = round(max_page)
+
+        products = products[PAGINATIONLIMIT * (page - 1):PAGINATIONLIMIT * page]
+
+        if search:
+            products = products.filter(title__contains=search) | products.filter(description__contains=search)
 
         data = {
             'products': products,
-            'user': request.user
+            'user': request.user,
+            'pages': range(1, max_page + 1)
         }
 
         return render(request, 'products/products.html', context=data)
