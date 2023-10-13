@@ -28,7 +28,7 @@ urlpatterns = [
     path('', MainCBV.as_view()),
     path('products/', ProductsCBV.as_view()),
     path('products/create/', products_create_vies),
-    path('products/<int:id>/', ProductDetailCBV.as_view()),
+    path('products/<int:id>/', ProductDetailCBV.as_view(g)),
     path('hello/', hello_view),
     path('now_data/', now_data),
     path('goodby/', goodby),
